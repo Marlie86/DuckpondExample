@@ -1,0 +1,61 @@
+﻿@using DuckpondExample.Services.Core.Shared.Models
+@using DuckpondExample.Web.Enums
+
+
+@inject UserEditDialogViewModel vm;
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h4" Class="pt-4">@MudDialog.Title</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pa-4" Elevation="0">
+                    <UserEditComponent User="vm.User" />
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pa-4" Elevation="0">
+                    @if (vm.Groups != null && vm.Groups.Count() > 0) { 
+                        <UserGroupsComponent User="vm.User" Groups="vm.Groups" />
+                    }
+                    else {
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="5rem" Width="10rem"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="3rem" />
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="3rem"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="3rem"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="3rem"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="3rem"/>
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Height="3rem"/>
+                    }
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="vm.Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="vm.Submit">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public UserModel User { get => vm.User; set => vm.User = value; }
+
+    [Parameter] 
+    public DialogModeEnum Mode { get => vm.Mode; set => vm.Mode = value; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm.MudDialog = MudDialog;
+        vm.PropertyChanged += (sender, args) => StateHasChanged();
+        vm.User = User;
+        await vm.InitializeAsync();
+        base.OnInitialized();
+    }
+}

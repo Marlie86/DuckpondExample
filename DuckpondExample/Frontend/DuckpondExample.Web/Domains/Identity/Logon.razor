@@ -1,0 +1,33 @@
+﻿@page "/logon/{ReturnUrl}"
+@layout BlankLayout
+@inject LogonViewModel vm;
+
+<MudContainer MaxWidth="MaxWidth.Small">
+    <MudCard>
+        <MudCardMedia Image="images/duckpond.jpg" Height="450" />
+        <MudCardContent Class=" pa-4">
+            <MudText Typo="Typo.h2">Logon</MudText>
+            <MudText Typo="Typo.body1">Please enter your credentials.</MudText>
+
+            <MudForm>
+                <MudTextField T="string" Label="Username" Required="true" RequiredError="User name is required!" @bind-Value="vm.Username" />
+                <MudTextField T="string" Label="Password" Required="true" RequiredError="Password is required!" InputType="InputType.Password" @bind-Value="vm.Password" />
+                <MudSwitch Label="remember me" Color="Color.Primary" @bind-Value="vm.RememberMe" Class="mt-2"/>
+            </MudForm>
+        </MudCardContent>
+        <MudCardActions Class="d-flex justify-end pa-4">
+            <MudButton StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Outlined" Color="Color.Primary" OnClick="vm.AutoLogonAsync" Class="mx-2">Auto Login</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Login" Variant="Variant.Filled" Color="Color.Primary" OnClick="vm.LogonAsync">Login</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudContainer>
+
+@code {
+    [Parameter]
+    public string ReturnUrl { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm.ReturnUrl = ReturnUrl.Replace("|", "/");
+    }
+}

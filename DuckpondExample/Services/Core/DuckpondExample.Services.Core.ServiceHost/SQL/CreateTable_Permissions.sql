@@ -1,0 +1,10 @@
+CREATE TABLE [Duckpond].[Permissions]
+(
+	PermissionID INT IDENTITY(1,1) PRIMARY KEY,
+	PermissionName NVARCHAR(50) NOT NULL UNIQUE,
+	Description NVARCHAR(255) NOT NULL,
+    Target INT NOT NULL DEFAULT 0,
+    LastEditedBy INT NOT NULL DEFAULT 0
+)
+GO
+

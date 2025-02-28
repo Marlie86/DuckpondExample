@@ -1,0 +1,23 @@
+{
+  "projectPath": ".",
+  "outputPath": "aspirate-output",
+  "containerImageTags": [
+    "latest"
+  ],
+  "containerBuilder": "docker",
+  "outputFormat": "compose",
+  "privateRegistryEmail": "aspir8@aka.ms",
+  "secrets": {
+    "salt": "Kb2jUvX\u002Bj6oMjTAS",
+    "hash": "4qKfOQto/o55moxItVDKdgGZ8bp3VV6AHCSQOsJnIAA=",
+    "secrets": {
+      "cache": {},
+      "apiservice": {},
+      "duckpond-aspire-identity": {},
+      "webfrontend": {
+        "ConnectionStrings__cache": "Kb2jUvX\u002Bj6oMjTASdkVVx0A75srKltZiAlm2jyo2BGJwIKANrTc="
+      }
+    }
+  },
+  "processAllComponents": true
+}

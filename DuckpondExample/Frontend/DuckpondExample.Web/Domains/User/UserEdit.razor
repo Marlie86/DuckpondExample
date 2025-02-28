@@ -1,0 +1,45 @@
+﻿@page "/user/edit"
+@inject UserEditViewModel vm;
+
+<MudForm Model="@vm.User" @ref="vm.Form" Validation="@(vm.Validator.ValidateValue)" ValidationDelay="0">
+    <MudStack>
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudGrid>
+                <MudItem xs="12"><MudText Typo="Typo.h5">Login Information</MudText></MudItem>
+                <MudItem xs="12">
+                    <MudTextField T="string" Label="Logon Name" For="@(() => vm.User.Username)" Immediate="true" OnlyValidateIfDirty="false" @bind-Value="vm.User.Username" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string" InputType="InputType.Password"  Label="Password" @bind-Value="vm.User.Password" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string" InputType="InputType.Password" Label="Password repeat" />
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudGrid>
+                <MudItem xs="12"><MudText Typo="Typo.h5">Contact Information</MudText></MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string" InputType="InputType.Email" Label="EMail" For="@(() => vm.User.EMailAddress)" Immediate="true" OnlyValidateIfDirty="false" @bind-Value="vm.User.EMailAddress" />
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudStack AlignItems="AlignItems.End" Justify="Justify.FlexEnd" StretchItems="StretchItems.All" Row="true">
+                <MudButton ButtonType="ButtonType.Button" Variant="Variant.Outlined" Color="Color.Tertiary">Cancel</MudButton>
+                <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="vm.TrySaveAsync">Save</MudButton>
+            </MudStack>
+        </MudPaper>
+
+    </MudStack>
+</MudForm>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitializeAsync();
+       
+    }
+}

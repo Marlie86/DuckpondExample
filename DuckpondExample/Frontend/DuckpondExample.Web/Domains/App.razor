@@ -1,0 +1,33 @@
+﻿@using DuckpondExample.Web.UtilityServices
+
+@inject NavigationManager navigationManager;
+@inject StorageService storageService;
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <NavigateTo TargetUrl="/logon" @bind-ReturnUrl="ReturnUrl" />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+@code {
+    public string ReturnUrl { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ReturnUrl = navigationManager.Uri;
+        await storageService.Initalize();
+    }
+}

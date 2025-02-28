@@ -1,0 +1,41 @@
+﻿@inherits LayoutComponentBase
+@inject MainLayoutViewModel vm;
+
+@* Required *@
+<MudThemeProvider IsDarkMode="true" Theme="@vm.CurrentTheme" />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider  />
+
+<MudLayout>
+    <MudAppBar Elevation="1" Color="Color.Dark">
+        <MudIconButton Icon="fas fa-bars" Color="Color.Primary" Edge="Edge.Start" OnClick="@((e) => vm.DrawerToggle())" />
+        <MudText Typo="Typo.h5" Class="ml-3">🦆 Duckpond</MudText>
+        <MudSpacer />
+
+        <MudMenu Label="@vm.Username" StartIcon="fas fa-user" Class="px-4" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Color="Color.Primary">
+            <MudMenuItem Href="/user/edit" Icon="fas fa-user-pen" IconColor="Color.Primary">Edit Profile</MudMenuItem>
+            <MudDivider  />
+            <MudMenuItem Href="/logout" Icon="fas fa-right-from-bracket" IconColor="Color.Primary">Logout</MudMenuItem>
+        </MudMenu>
+    </MudAppBar>
+    <MudDrawer Open="@vm.DrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavigationMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudPaper Elevation="3" Class="ma-4 pa-4">
+            @Body
+        </MudPaper>
+    </MudMainContent>
+</MudLayout>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitalizeAsync();
+    }
+}

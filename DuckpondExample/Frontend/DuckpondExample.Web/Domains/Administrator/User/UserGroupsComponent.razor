@@ -1,0 +1,50 @@
+﻿@using Duckpond.Aspire.Web.Models.StateModels
+@using DuckpondExample.Services.Core.Shared.DataItems
+@using DuckpondExample.Services.Core.Shared.Models
+
+
+@inject UserGroupsComponentViewModel vm;
+
+<MudItem xs="12" Class="pa-4"><MudText Typo="Typo.h5">Groups</MudText></MudItem>
+<MudItem xs="12" Class="pa-2">
+    <MudDataGrid T="UserGroupRead" Items="vm.UserGroups" SelectedItems="vm.SelectedUserGroups" MultiSelection="true" SelectedItemsChanged="@SelectedItemsChangedHandler"
+                    Filterable="true" FilterMode="DataGridFilterMode.Simple" FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive">
+        <Columns>
+            <SelectColumn T="UserGroupRead" ShowInHeader="false" />
+            <PropertyColumn Property="x => x.GroupName" Filterable="true" />
+        </Columns>
+    </MudDataGrid> 
+</MudItem>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public UserModel User { get; set; }
+
+    [Parameter]
+    public IEnumerable<UserGroupRead> Groups { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm.User = User;
+        vm.UserGroups = Groups;
+        await vm.InitializeAsync();
+    }
+
+    public async Task SelectedItemsChangedHandler()
+    {
+        foreach (var groupItem in Groups)
+        {
+            if (vm.SelectedUserGroups.Contains(groupItem))
+            {
+                groupItem.IsSelected = true;
+            }
+            else 
+            {
+                groupItem.IsSelected = false;
+            }
+        }
+    }
+}

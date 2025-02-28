@@ -1,0 +1,84 @@
+﻿@page "/administrator/groups"
+@using DuckpondExample.Services.Core.Shared.DataItems
+@using DuckpondExample.Web.Authorize
+@inject GroupsViewModel vm;
+
+
+<AuthorizeViewBase Permission="@(Permissions.GroupsShow)">
+    <PermissionDeniedContent>
+        <MudAlert Severity="Severity.Error">Keine Berechtigung</MudAlert>
+    </PermissionDeniedContent>
+    <LoadingContent>
+        <MudProgressLinear IsIndeterminate="true" Color="Color.Primary" />
+    </LoadingContent>
+    <ChildContent>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudPaper Class="pa-4" Elevation="0" Height="@($"calc(100vh - 15rem)")">
+                    @if (vm.Groups != null)
+                    {
+                        <MudToolBar Dense="true">
+
+                            <MudGrid>
+                                <MudItem xs="12">
+                                    <MudToolBar>
+                                        <MudButton StartIcon="fas fa-plus" Color="Color.Primary" Variant="Variant.Text" OnClick="vm.OpenGroupCreateDialog">Neu erstellen</MudButton>
+
+                                        <MudSpacer />
+                                        <MudTextField T="string" Label="Suche" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="fas fa-magnifying-glass" />
+                                    </MudToolBar>
+                                </MudItem>
+                            </MudGrid>
+                        </MudToolBar>
+                        <MudList T="Group" @bind-SelectedValue="vm.SelectedGroup" SelectionMode="SelectionMode.SingleSelection">
+                            <MudListSubheader>
+
+                            </MudListSubheader>
+                            @foreach (var group in vm.Groups)
+                            {
+                                <MudListItem Value="@group" OnClick="@(async () => await vm.OpenGroupEditDialog(group))">
+                                    <div class="d-flex justify-space-between gap-4">
+
+
+
+                                        <MudText Typo="Typo.h6">@group.Name</MudText>
+                                        <MudStack Row="true" AlignItems="AlignItems.Center" Justify="Justify.FlexEnd">
+                                            @if (@group.IsDefault)
+                                            {
+                                                <MudIcon Icon="fas fa-check" Color="Color.Primary" />
+                                            }
+                                            else
+                                            {
+                                                <MudIcon Icon="fas fa-xmark" Color="Color.Secondary" />
+                                            }
+                                            <AuthorizeViewBase Permission="@(Permissions.GroupsDelete)">
+                                                <LoadingContent>
+                                                    <MudProgressCircular IsIndeterminate="true" Color="Color.Primary" />
+                                                </LoadingContent>
+                                                <PermissionDeniedContent>
+                                                    <MudIconButton Icon="fas fa-trash" Color="Color.Error" Disabled="true" />
+                                                </PermissionDeniedContent>
+                                                <ChildContent>
+                                                    <MudIconButton Icon="fas fa-trash" Color="Color.Error" OnClick="@(async () => await vm.RemoveGroup(group))" />
+                                                </ChildContent>
+                                            </AuthorizeViewBase>
+                                        </MudStack>
+                                    </div>
+                                </MudListItem>
+                            }
+                        </MudList>
+                    }
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </ChildContent>
+</AuthorizeViewBase>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitializeAsync();
+    }
+}

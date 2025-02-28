@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+@inject MainLayoutViewModel vm; 
+
+@* Required *@
+<MudThemeProvider IsDarkMode="true" Theme="@vm.CurrentTheme" />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitalizeAsync();
+    }
+}

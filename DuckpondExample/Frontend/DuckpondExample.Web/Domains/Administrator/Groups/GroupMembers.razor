@@ -1,0 +1,59 @@
+﻿@using DuckpondExample.Services.Core.Shared.DataItems
+
+@inject GroupMembersViewModel vm;
+
+<MudDataGrid T="GroupMembersRead" Items="@vm.Members" MultiSelection="true" SelectedItems="@vm.SelectedMembers" LoadingProgressColor="Color.Primary" Height="calc(90vh - 29rem)" Elevation="0" Outlined="false"
+             SelectOnRowClick="false" Groupable="true" SelectedItemChanged="@(async (item) => await vm.SelectedItemChangedHandler(item))" Loading="vm.IsLoading" QuickFilter="vm.Search">
+    <LoadingContent>
+        <MudStack>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+            <MudSkeleton Height="3rem"></MudSkeleton>
+        </MudStack>
+    </LoadingContent>
+    <ToolBarContent>
+        <MudGrid>
+            <MudItem xs="12">
+                <MudTextField Placeholder="Search" Adornment="Adornment.Start" Immediate="true" @bind-Value="@vm.SearchString"
+                              AdornmentIcon="fas fa-magnifying-glass" IconSize="Size.Medium" FullWidth="true"></MudTextField>
+            </MudItem>
+        </MudGrid>
+    </ToolBarContent>
+    
+    <Columns>
+        <PropertyColumn Property="x => x.IsSelected" Title="Is Member" Editable="true">
+            <CellTemplate>
+                <MudCheckBox T="bool" Color="Color.Primary" Value="@context.Item.IsSelected" ValueChanged="@(async (value) => await vm.ItemIsSelectedChangedHandler(value, context.Item))" />
+            </CellTemplate>
+        </PropertyColumn>
+        <PropertyColumn Property="x => x.Username" Filterable="true" />
+    </Columns>
+</MudDataGrid>
+
+@code {
+    [Parameter]
+    public Group Group { get => vm.Group; set { vm.Group = value; OnSelectedMembersChangedAsync(); } }
+
+    [Parameter]
+    public List<GroupMembersRead> ChangedMembers { get => vm.ChangedMembers; set { vm.ChangedMembers = value; } }
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitializeAsync();
+    }
+
+    private async void OnSelectedMembersChangedAsync()
+    {
+        await vm.InitializeAsync();
+    }
+}

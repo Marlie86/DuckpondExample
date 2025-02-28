@@ -1,0 +1,110 @@
+﻿@page "/administrator/users"
+@using DuckpondExample.Services.Core.Shared.Models
+@using DuckpondExample.Web.Authorize
+@inject UsersViewModel vm;
+@attribute [Authorize]
+<AuthorizeViewBase Permission="@(Permissions.UsersShow)">
+    <PermissionDeniedContent>
+        <MudAlert Severity="Severity.Error">Keine Berechtigung</MudAlert>
+    </PermissionDeniedContent>
+    <LoadingContent>
+        <MudProgressLinear IsIndeterminate="true" Color="Color.Primary" />
+    </LoadingContent>
+    <ChildContent>
+        <MudDataGrid T="UserModel" Items="@vm.Users" ReadOnly="false" EditMode="DataGridEditMode.Form"
+                     Virtualize="false" FixedHeader="true" LoadingProgressColor="Color.Primary"
+                     Bordered="true" Dense="true" EditTrigger="DataGridEditTrigger.Manual" QuickFilter="vm.Search"
+                     Filterable="true" FilterMode="DataGridFilterMode.Simple" FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
+                     Height="@($"calc({vm.Height}vh - 15rem)")" Elevation="0" Loading="vm.Loading">
+            <LoadingContent>
+                <MudProgressLinear IsIndeterminate="true" Color="Color.Primary" />
+            </LoadingContent>
+            <ToolBarContent>
+                <MudGrid>
+                    <MudItem xs="12">
+                        <MudToolBar>
+                            <MudButton StartIcon="fas fa-plus" Color="Color.Primary" Variant="Variant.Text" OnClick="vm.OpenCreateUserDialog">Neu erstellen</MudButton>
+
+                            <MudSpacer />
+                            <MudTextField Placeholder="Search" Adornment="Adornment.Start" Immediate="true" @bind-Value="@vm.SearchString"
+                                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
+                        </MudToolBar>
+                    </MudItem>
+                </MudGrid>
+            </ToolBarContent>
+            <Columns>
+                <PropertyColumn Property="x => x.UserID" Title="Nr" Editable="false" />
+                <PropertyColumn Property="x => x.Username" Title="Username" Editable="true" />
+                <PropertyColumn Property="x => x.EMailAddress" Title="Email Address" Editable="true" />
+                <PropertyColumn Property="x => x.IsAdmin" Title="Is Admin" Editable="true">
+                    <CellTemplate>
+                        @if (context.Item.IsAdmin)
+                        {
+                            <MudIcon Icon="fas fa-check" Color="Color.Primary" />
+                        }
+                        else
+                        {
+                            <MudIcon Icon="fas fa-xmark" Color="Color.Secondary" />
+                        }
+                    </CellTemplate>
+                </PropertyColumn>
+                <PropertyColumn Property="x => x.IsPermittedToLogon" Title="Is Permitted To Logon" Editable="true">
+                    <CellTemplate>
+                        @if (context.Item.IsPermittedToLogon)
+                        {
+                            <MudIcon Icon="fas fa-check" Color="Color.Primary" />
+                        }
+                        else
+                        {
+                            <MudIcon Icon="fas fa-xmark" Color="Color.Secondary" />
+                        }
+                    </CellTemplate>
+                </PropertyColumn>
+                <PropertyColumn Property="x => x.IsSystemUser" Title="Is System User" Editable="true">
+                    <CellTemplate>
+                        @if (context.Item.IsSystemUser)
+                        {
+                            <MudIcon Icon="fas fa-check" Color="Color.Primary" />
+                        }
+                        else
+                        {
+                            <MudIcon Icon="fas fa-xmark" Color="Color.Secondary" />
+                        }
+                    </CellTemplate>
+                </PropertyColumn>
+                <PropertyColumn Property="x => x.IsDeactivated" Title="Is Deactivated" Editable="true">
+                    <CellTemplate>
+                        @if (context.Item.IsDeactivated)
+                        {
+                            <MudIcon Icon="fas fa-check" Color="Color.Primary" />
+                        }
+                        else
+                        {
+                            <MudIcon Icon="fas fa-xmark" Color="Color.Secondary" />
+                        }
+                    </CellTemplate>
+                </PropertyColumn>
+                <TemplateColumn CellClass="d-flex justify-end" StickyRight="true" Title="">
+                    <CellTemplate>
+                        <MudStack Row="true" StretchItems="StretchItems.None">
+                            <MudIconButton Icon="fas fa-pen" Color="Color.Primary" OnClick="@(() => vm.OpenEditUserDialog(context.Item))" />
+                            <MudIconButton Icon="fas fa-trash" Color="Color.Error" OnClick="@(async () => await vm.RemoveUser(context.Item))" />
+                        </MudStack>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="UserModel" PageSizeOptions="@pageSizeOptions" />
+            </PagerContent>
+        </MudDataGrid>
+    </ChildContent>
+</AuthorizeViewBase>
+
+@code {
+    public int[] pageSizeOptions = new int[] {25, 50, 100, 200};
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitializeAsync();
+    }
+}

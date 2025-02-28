@@ -1,0 +1,81 @@
+﻿@using DuckpondExample.Services.Core.Shared.DataItems
+@using DuckpondExample.Web.Enums
+
+@inject GroupEditDialogViewModel vm;
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h4" Class="pt-4">@MudDialog.Title</MudText>
+    </TitleContent>
+    <DialogContent>
+
+        <MudGrid>
+            <MudItem xs="12">
+                <MudText Typo="Typo.h5">Group information</MudText>
+            </MudItem>
+            <MudItem xs="12" sm="10">
+                <MudTextField T="string" Label="Group Name" For="@(() => vm.Group.Name)" Immediate="true" OnlyValidateIfDirty="false" @bind-Value="vm.Group.Name" />
+            </MudItem>
+            <MudItem xs="12" sm="2">
+                <MudCheckBox T="bool" Label="Is a default group" For="@(() => vm.Group.IsDefault)" Immediate="true" OnlyValidateIfDirty="false" @bind-Value="vm.Group.IsDefault" />
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pt-4" Elevation="0">
+                    <MudText Typo="Typo.h5">Mitglieder</MudText>
+                </MudPaper>
+                <MudPaper Elevation="0">
+                    <GroupMembers Group="vm.Group" ChangedMembers="vm.ChangedGroupMembers" />
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <MudPaper Class="pt-4" Elevation="0">
+                    <MudText Typo="Typo.h5">Berechtigungen</MudText>
+                </MudPaper>
+                <MudPaper Elevation="0">
+                    <GroupPermissions Group="vm.Group" ChangedPermissions="vm.ChangedGroupPermissions" />
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="vm.Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="vm.Submit">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public Group Group { 
+        get => vm.Group; 
+        set 
+        { 
+            if (vm.Group == value) return; 
+            vm.Group = value; 
+            StateHasChanged(); 
+        } 
+    }
+
+    [Parameter] 
+    public DialogModeEnum Mode
+    {
+        get => vm.Mode;
+        set
+        {
+            if (vm.Mode == value) return;
+            vm.Mode = value;
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += (sender, args) => StateHasChanged();
+        vm.MudDialog = MudDialog;
+        await vm.InitializeAsync();
+        base.OnInitialized();
+    }
+}

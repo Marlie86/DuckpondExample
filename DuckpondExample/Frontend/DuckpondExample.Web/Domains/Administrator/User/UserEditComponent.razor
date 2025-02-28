@@ -1,0 +1,67 @@
+﻿@using DuckpondExample.Services.Core.Shared.Models
+
+@inject UserEditComponentViewModel vm
+
+<MudForm Model="vm.User" Validation="@(vm.Validator.ValidateValue)" ValidationDelay="0">
+    <MudStack>
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudGrid>
+                <MudItem xs="12"><MudText Typo="Typo.h5">Login Information</MudText></MudItem>
+                <MudItem xs="12">
+                    <MudTextField T="string" Label="Username" For="@(() => vm.User.Username)" Immediate="true" OnlyValidateIfDirty="false" @bind-Value="vm.User.Username" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string" InputType="InputType.Password" Label="Password" @bind-Value="@vm.User.Password" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string" InputType="InputType.Password" Label="Password repeat" />
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudGrid>
+                <MudItem xs="12"><MudText Typo="Typo.h5">Contact Information</MudText></MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField T="string" InputType="InputType.Email" Label="EMail" For="@(() => vm.User.EMailAddress)" Immediate="true" OnlyValidateIfDirty="false" @bind-Value="vm.User.EMailAddress" />
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+
+        <MudPaper Class="pa-4" Elevation="0">
+            <MudGrid>
+                <MudItem xs="12"><MudText Typo="Typo.h5">Flags</MudText></MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCheckBox T="bool" Color="Color.Primary" Label="Is Admin" For="@(() => vm.User.IsAdmin)" @bind-Value="vm.User.IsAdmin" />
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCheckBox T="bool" Color="Color.Primary" Label="Is System User" For="@(() => vm.User.IsSystemUser)" @bind-Value="vm.User.IsSystemUser" />
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCheckBox T="bool" Color="Color.Primary" Label="Is Permitted to Logon" For="@(() => vm.User.IsPermittedToLogon)" @bind-Value="vm.User.IsPermittedToLogon" />
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCheckBox T="bool" Color="Color.Primary" Label="Uses External login (not implemented)" For="@(() => vm.User.IsExternalLogonProvider)" @bind-Value="vm.User.IsExternalLogonProvider" />
+                </MudItem>
+                <MudItem xs="12" sm="4">
+                    <MudCheckBox T="bool" Color="Color.Primary" Label="Is Account deactivated" For="@(() => vm.User.IsDeactivated)" @bind-Value="vm.User.IsDeactivated" />
+                </MudItem>
+            </MudGrid>
+        </MudPaper>
+
+    </MudStack>
+</MudForm>
+
+@code {
+    [Parameter]
+    public UserModel User { get => vm.User; set { if (vm.User != value) vm.User = value; StateHasChanged(); } }
+
+    [Parameter] 
+    public EventCallback<UserModel> UserChanged { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        vm.PropertyChanged += async (sender, args) => await InvokeAsync(StateHasChanged);
+        await vm.InitializeAsync();
+    }
+}

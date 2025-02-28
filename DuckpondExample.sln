@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35806.99 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.Web", "DuckpondExample\Frontend\DuckpondExample.Web\DuckpondExample.Web.csproj", "{F55EC759-E132-44E7-8495-EA91F70982C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{A5FA52C7-D8D9-49DA-8241-C596ACDF176A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.Gateway", "DuckpondExample\Hosts\DuckpondExample.Gateway\DuckpondExample.Gateway.csproj", "{A837E3EE-DD7C-4D23-AFE2-9962EDE96829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.AppHost", "DuckpondExample\Hosts\DuckpondExample.AppHost\DuckpondExample.AppHost.csproj", "{26B49760-4916-4FBD-BDD7-D6E19AE87A1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7CBE336E-F347-4FCC-9FB3-259A476B600F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6D1406C2-B629-4662-8E4B-CE9954E6CAC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.Services.Core.ServiceHost", "DuckpondExample\Services\Core\DuckpondExample.Services.Core.ServiceHost\DuckpondExample.Services.Core.ServiceHost.csproj", "{C96DCB30-A456-45D8-8E86-AFF1144A9370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.Services.Core.Shared", "DuckpondExample\Services\Core\DuckpondExample.Services.Core.Shared\DuckpondExample.Services.Core.Shared.csproj", "{05FD554F-E8AB-4A36-9F67-D1BD65A9A380}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FEB8899B-A38D-4940-BDF9-506DF58BF646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.Shared.Common.Hosts", "DuckpondExample\Shared\DuckpondExample.Shared.Common.Hosts\DuckpondExample.Shared.Common.Hosts.csproj", "{EA82ACF9-BC68-43C8-95ED-21DA44EDA5A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuckpondExample.Shared.Common", "DuckpondExample\Shared\DuckpondExample.Shared.Common\DuckpondExample.Shared.Common.csproj", "{59748545-D02F-4EC5-9C62-4AC8E821315F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F55EC759-E132-44E7-8495-EA91F70982C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F55EC759-E132-44E7-8495-EA91F70982C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F55EC759-E132-44E7-8495-EA91F70982C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F55EC759-E132-44E7-8495-EA91F70982C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A837E3EE-DD7C-4D23-AFE2-9962EDE96829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A837E3EE-DD7C-4D23-AFE2-9962EDE96829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A837E3EE-DD7C-4D23-AFE2-9962EDE96829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A837E3EE-DD7C-4D23-AFE2-9962EDE96829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B49760-4916-4FBD-BDD7-D6E19AE87A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B49760-4916-4FBD-BDD7-D6E19AE87A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B49760-4916-4FBD-BDD7-D6E19AE87A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B49760-4916-4FBD-BDD7-D6E19AE87A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C96DCB30-A456-45D8-8E86-AFF1144A9370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96DCB30-A456-45D8-8E86-AFF1144A9370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96DCB30-A456-45D8-8E86-AFF1144A9370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96DCB30-A456-45D8-8E86-AFF1144A9370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05FD554F-E8AB-4A36-9F67-D1BD65A9A380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05FD554F-E8AB-4A36-9F67-D1BD65A9A380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05FD554F-E8AB-4A36-9F67-D1BD65A9A380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05FD554F-E8AB-4A36-9F67-D1BD65A9A380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA82ACF9-BC68-43C8-95ED-21DA44EDA5A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA82ACF9-BC68-43C8-95ED-21DA44EDA5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA82ACF9-BC68-43C8-95ED-21DA44EDA5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA82ACF9-BC68-43C8-95ED-21DA44EDA5A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59748545-D02F-4EC5-9C62-4AC8E821315F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59748545-D02F-4EC5-9C62-4AC8E821315F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59748545-D02F-4EC5-9C62-4AC8E821315F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59748545-D02F-4EC5-9C62-4AC8E821315F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F55EC759-E132-44E7-8495-EA91F70982C6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A837E3EE-DD7C-4D23-AFE2-9962EDE96829} = {A5FA52C7-D8D9-49DA-8241-C596ACDF176A}
+		{26B49760-4916-4FBD-BDD7-D6E19AE87A1F} = {A5FA52C7-D8D9-49DA-8241-C596ACDF176A}
+		{6D1406C2-B629-4662-8E4B-CE9954E6CAC5} = {7CBE336E-F347-4FCC-9FB3-259A476B600F}
+		{C96DCB30-A456-45D8-8E86-AFF1144A9370} = {6D1406C2-B629-4662-8E4B-CE9954E6CAC5}
+		{05FD554F-E8AB-4A36-9F67-D1BD65A9A380} = {6D1406C2-B629-4662-8E4B-CE9954E6CAC5}
+		{EA82ACF9-BC68-43C8-95ED-21DA44EDA5A9} = {FEB8899B-A38D-4940-BDF9-506DF58BF646}
+		{59748545-D02F-4EC5-9C62-4AC8E821315F} = {FEB8899B-A38D-4940-BDF9-506DF58BF646}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31DD9E8A-6900-4D43-92E1-E4A43CDC9769}
+	EndGlobalSection
+EndGlobal

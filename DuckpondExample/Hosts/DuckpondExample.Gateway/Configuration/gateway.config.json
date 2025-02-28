@@ -1,0 +1,155 @@
+{
+  "ApiGatewaySettings": {
+    "ApiServices": {
+      "/api/Identity/": {
+        "Name": "DuckpondSkeleton.Identity2",
+        "BaseUrl": "https://localhost:7033",
+        "SwaggerPath": "/swagger/v1/swagger.json",
+        "SwaggerName": "DuckpondSkeleton.Identity",
+        "SwaggerTitle": "DuckpondSkeleton Identity API",
+        "SwaggerVersion": "v1",
+        "SwaggerDescription": "DuckpondSkeleton Identity API",
+        "ExposedEndpoints": [
+          {
+            "Name": "Identity Logon",
+            "Path": "/api/Identity/logon",
+            "HttpMethod": "POST",
+            "MustAuthenticate": false,
+            "Permission": null
+          },
+          {
+            "Name": "Identity Has Permission",
+            "Path": "/api/Identity/haspermission",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": null
+          }
+        ]
+      },
+      "/api/Users/": {
+        "Name": "DuckpondSkeleton.Users",
+        "BaseUrl": "https://localhost:7033",
+        "SwaggerPath": "/swagger/v1/swagger.json",
+        "SwaggerName": "DuckpondSkeleton.Users",
+        "SwaggerTitle": "DuckpondSkeleton Users API",
+        "SwaggerVersion": "v1",
+        "SwaggerDescription": "DuckpondSkeleton Users API",
+        "ExposedEndpoints": [
+          {
+            "Name": "Users Get all",
+            "Path": "/api/Users/getall",
+            "HttpMethod": "Get",
+            "MustAuthenticate": true,
+            "Permission": "Users.Api.GetAll"
+          },
+          {
+            "Name": "Users Get Person by Id",
+            "Path": "/api/Users/getbyid",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": "Users.Api.GetById"
+          },
+          {
+            "Name": "Users Update User",
+            "Path": "/api/Users/update",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": "Users.Api.UpdateUser"
+          },
+          {
+            "Name": "Users Create User",
+            "Path": "/api/Users/create",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": "Users.Api.CreateUser"
+          },
+          {
+            "Name": "Users Delete User",
+            "Path": "/api/Users/delete",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": "Users.Api.DeleteUser"
+          }
+        ]
+      },
+      "/api/UsersGroups/": {
+        "Name": "DuckpondSkeleton.UsersGroups",
+        "BaseUrl": "https://localhost:7033",
+        "SwaggerPath": "/swagger/v1/swagger.json",
+        "SwaggerName": "DuckpondSkeleton.UsersGroups",
+        "SwaggerTitle": "DuckpondSkeleton Users Groups API",
+        "SwaggerVersion": "v1",
+        "SwaggerDescription": "DuckpondSkeleton Users Groups API",
+        "ExposedEndpoints": [
+          {
+            "Name": "Get users groups",
+            "Path": "/api/UsersGroups/getusersgroups",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": "UsersGroups.Api.GetUsersGroups"
+          },
+          {
+            "Name": "Update users group",
+            "Path": "/api/UsersGroups/updateusersgroups",
+            "HttpMethod": "POST",
+            "MustAuthenticate": true,
+            "Permission": "UsersGroups.Api.UpdateUsersGroups"
+          }
+        ]
+      },
+      "/api/Groups/": {
+        "Name": "DuckpondSkeleton.Groups",
+        "BaseUrl": "https://localhost:7033",
+        "SwaggerPath": "/swagger/v1/swagger.json",
+        "SwaggerName": "DuckpondSkeleton.Groups",
+        "SwaggerTitle": "DuckpondSkeleton Groups API",
+        "SwaggerVersion": "v1",
+        "SwaggerDescription": "DuckpondSkeleton Groups API",
+        "ExposedEndpoints": [
+          {
+            "Name": "Groups Get Groups",
+            "Path": "/api/Groups/getall",
+            "HttpMethod": "GET",
+            "MustAuthenticate": true,
+            "Permission": "Groups.Api.GetGroups"
+          },
+          {
+            "Name": "Groups Get Group Members",
+            "Path": "/api/Groups/getgroupmembers",
+            "HttpMethod": "Post",
+            "MustAuthenticate": true,
+            "Permission": "Groups.Api.GetGroupMembers"
+          },
+          {
+            "Name": "Groups Get Group Permissions",
+            "Path": "/api/Groups/getpermissions",
+            "HttpMethod": "Post",
+            "MustAuthenticate": true,
+            "Permission": "Groups.Api.GetGroupPermissions"
+          },
+          {
+            "Name": "Groups Update Group with Members and Permissions",
+            "Path": "/api/Groups/updategroupwithmembersandpermissions",
+            "HttpMethod": "Post",
+            "MustAuthenticate": true,
+            "Permission": "Groups.Api.UpdateGroupWithMembersAndPermissions"
+          },
+          {
+            "Name": "Groups Create Group with Members and Permissions",
+            "Path": "/api/Groups/creategroupwithmembersandpermissions",
+            "HttpMethod": "Post",
+            "MustAuthenticate": true,
+            "Permission": "Groups.Api.CreateGroupWithMembersAndPermissions"
+          },
+          {
+            "Name": "Groups Delete Group",
+            "Path": "/api/Groups/deletegroup",
+            "HttpMethod": "Post",
+            "MustAuthenticate": true,
+            "Permission": "Groups.Api.DeleteGroup"
+          }
+        ]
+      }
+    }
+  }
+}

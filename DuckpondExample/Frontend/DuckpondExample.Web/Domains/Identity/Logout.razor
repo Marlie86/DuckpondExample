@@ -1,0 +1,9 @@
+﻿@page "/logout"
+@inject LogoutViewModel vm;
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await vm.Logout();
+    }
+}

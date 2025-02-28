@@ -1,0 +1,25 @@
+﻿@using DuckpondExample.Web.Authorize
+<MudNavMenu>
+    <MudText Typo="Typo.h6" Class="px-4 mt-4">Navigation</MudText>
+
+    <MudDivider Class="my-2" />
+
+    <MudNavLink Href="/dashboard" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Primary">Dashboard</MudNavLink>
+
+    <AuthorizeViewBase Permission="@Permissions.MenuAdministratorShow">
+        <LoadingContent>
+            <MudProgressLinear IsIndeterminate="true" Color="Color.Primary" />
+        </LoadingContent>
+        <ChildContent>
+            <MudNavGroup Title="Administration" Expanded="true" Icon="fas fa-toolbox" IconColor="Color.Primary">
+                <MudNavLink Href="/administrator/users" Icon="fas fa-users" IconColor="Color.Primary">Anwender</MudNavLink>
+                <MudNavLink Href="/administrator/groups" Icon="fas fa-people-group" IconColor="Color.Primary">Gruppen</MudNavLink>
+            </MudNavGroup>
+        </ChildContent>
+    </AuthorizeViewBase>
+
+</MudNavMenu>
+
+@code {
+
+}
